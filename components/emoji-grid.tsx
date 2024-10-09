@@ -1,30 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { Download, Heart } from "lucide-react";
-
-type Emoji = {
-  id: string;
-  url: string;
-  liked: boolean;
-};
+import { useEmoji } from "@/context/EmojiContext";
 
 export default function EmojiGrid() {
-  const [emojis, setEmojis] = useState<Emoji[]>([
-    // Sample data, replace with actual generated emojis
-    { id: "1", url: "https://picsum.photos/200", liked: false },
-    { id: "2", url: "https://picsum.photos/201", liked: true },
-    { id: "3", url: "https://picsum.photos/202", liked: false },
-  ]);
-
-  const toggleLike = (id: string) => {
-    setEmojis(
-      emojis.map((emoji) =>
-        emoji.id === id ? { ...emoji, liked: !emoji.liked } : emoji
-      )
-    );
-  };
+  const { emojis, toggleLike } = useEmoji();
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">

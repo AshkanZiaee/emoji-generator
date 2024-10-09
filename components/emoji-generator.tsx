@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import { useEmoji } from "@/context/EmojiContext";
 
 export default function EmojiGenerator() {
   const [prompt, setPrompt] = useState("");
@@ -13,6 +14,7 @@ export default function EmojiGenerator() {
   const [generatedEmojiUrl, setGeneratedEmojiUrl] = useState<string | null>(
     null
   );
+  const { addEmoji } = useEmoji();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,6 +36,7 @@ export default function EmojiGenerator() {
       if (response.ok) {
         console.log("Generated emoji URL:", data.emojiUrl);
         setGeneratedEmojiUrl(data.emojiUrl);
+        addEmoji(data.emojiUrl);
       } else {
         throw new Error(data.error || "Failed to generate emoji");
       }
